@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerPilot AI | Expert Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-logo">CareerPilot <span class="gradient-text">AI</span></div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-link active" data-section="home-section"><i class="fas fa-home"></i> <span>Home</span></a>
+            <a href="#" class="nav-link" data-section="dashboard-section"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
+            <a href="#" class="nav-link" data-section="planner-section"><i class="fas fa-calendar-alt"></i> <span>Roadmap</span></a>
+            <a href="#" class="nav-link" data-section="interview-section"><i class="fas fa-headset"></i> <span>Interview</span></a>
+            <a href="#" class="nav-link" data-section="resume-section"><i class="fas fa-file-alt"></i> <span>Resume</span></a>
+            <a href="#" class="nav-link" data-section="kerala-section"><i class="fas fa-map-marker-alt"></i> <span>Local Hubs</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="theme-toggle" class="btn-secondary" style="width:100%"><i class="fas fa-moon"></i> <span>Theme</span></button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <section id="home-section" class="content-section">
+            <h1>Build Your <span class="gradient-text">Future</span></h1>
+            <div class="dashboard-card">
+                <h3>Define Your Expert Profile</h3>
+                <div class="input-grid mt-1">
+                    <div class="input-group"><label>Degree / Background</label><input type="text" id="degree" placeholder="e.g. BTech Electronics"></div>
+                    <div class="input-group"><label>Current Skills</label><input type="text" id="skills" placeholder="e.g. Python, C++, IoT"></div>
+                    <div class="input-group"><label>Target Goal / Role</label><input type="text" id="goal" placeholder="e.g. Embedded Systems Engineer"></div>
+                    <div class="input-group">
+                        <label>Developer Personality</label>
+                        <select id="personality"><option>Analytic & Logic-Driven</option><option>Creative & Frontend-Focused</option></select>
+                    </div>
+                    <div class="input-group">
+                        <label>Kerala/Gulf Focus</label>
+                        <div class="kerala-toggle-wrapper">
+                            <label class="kerala-toggle"><input type="checkbox" id="kerala-mode"><span class="slider"></span></label>
+                        </div>
+                    </div>
+                </div>
+                <button id="analyze-btn" class="btn-primary mt-1"><i class="fas fa-microchip"></i> Generate Expert Analysis</button>
+            </div>
+        </section>
+
+        <section id="dashboard-section" class="content-section hidden">
+            <h2>Career Intelligence</h2>
+            <div class="stats-grid">
+                <div class="dashboard-card text-center">
+                    <h4>Market Viability Score</h4>
+                    <div class="chart-container">
+                        <canvas id="matchChart"></canvas>
+                        <div class="chart-center-text" id="match-percent">0%</div>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <h4>Senior AI Assessment</h4>
+                    <p id="path-recommendation" class="mt-1" style="line-height: 1.8; color: var(--text-muted);"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="planner-section" class="content-section hidden">
+            <div class="header-flex">
+                <h2>Expert-Led 30-Day Roadmap</h2>
+                <div class="progress-info"><i class="fas fa-trophy"></i> Mastery: <span id="completed-count">0</span>/30</div>
+            </div>
+            <div id="planner-grid" class="planner-grid"></div>
+        </section>
+
+        <section id="interview-section" class="content-section hidden">
+            <h2>Technical Interview Simulator</h2>
+            <div id="interview-start-screen" class="dashboard-card text-center">
+                <i class="fas fa-user-tie" style="font-size:3rem; color:var(--primary-color)"></i>
+                <h3 class="mt-1">Ready for the Technical Round?</h3>
+                <p style="color:var(--text-muted)">Questions are dynamically generated based on your target role.</p>
+                <button id="start-interview-btn" class="btn-primary mt-1">Start Simulation</button>
+            </div>
+            <div id="interview-session" class="dashboard-card hidden">
+                <h3 id="current-question" class="gradient-text" style="margin-bottom: 1rem;"></h3>
+                <textarea id="user-answer" placeholder="Explain your architectural approach or solution here..."></textarea>
+                <div class="btn-group mt-1">
+                    <button id="evaluate-btn" class="btn-primary"><i class="fas fa-robot"></i> Get Expert Feedback</button>
+                    <button id="next-q-btn" class="btn-secondary">Next Question <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div id="interview-feedback" class="mt-1"></div>
+            </div>
+        </section>
+
+        <section id="resume-section" class="content-section hidden">
+            <h2>ATS Resume Scanner</h2>
+            <div class="dashboard-card">
+                <textarea id="resume-text" placeholder="Paste your professional resume text here for ATS evaluation..." style="min-height: 200px;"></textarea>
+                <button id="analyze-resume-btn" class="btn-primary mt-1"><i class="fas fa-search"></i> Run ATS Scan</button>
+                <div id="resume-results" class="hidden mt-1">
+                    <div class="progress-container" style="background: rgba(255,255,255,0.1); height: 12px; border-radius: 10px; margin-bottom: 10px;">
+                        <div class="progress-bar" id="resume-progress" style="height: 100%; background: var(--primary-color); border-radius: 10px; transition: width 1s;"></div>
+                    </div>
+                    <div id="resume-feedback"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="kerala-section" class="content-section hidden">
+            <h2>Regional Tech Hubs</h2>
+            <div class="dashboard-card">
+                <div class="tab-nav">
+                    <button class="tab-trigger active" onclick="switchTab('it-parks')">Kerala IT Parks</button>
+                    <button class="tab-trigger" onclick="switchTab('gulf')">Gulf Opportunities</button>
+                </div>
+                <div id="it-parks" class="tab-panel active">
+                    <div class="info-node"><h5><i class="fas fa-building"></i> Technopark, Trivandrum</h5><p>Top Sectors: Aerospace, FinTech, and Embedded Systems. Key Players: Oracle, Nissan, Infosys.</p></div>
+                    <div class="info-node mt-1"><h5><i class="fas fa-laptop-code"></i> Infopark, Kochi</h5><p>Top Sectors: AI, Cybersecurity, and Cloud. Key Players: TCS, IBM, Wipro.</p></div>
+                </div>
+                <div id="gulf" class="tab-panel">
+                    <div class="info-node" style="border-left-color: #f59e0b;"><h5><i class="fas fa-city"></i> Dubai Internet City / Qatar</h5><p>High demand for DevOps, Infrastructure Planning, and Web3 capabilities. Golden Visa accessible for top tech talent.</p></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="loading-overlay" class="hidden">
+        <div class="ai-loader"></div>
+        <p style="margin-top: 1rem; font-weight: 600;">Compiling Expert Architecture...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
